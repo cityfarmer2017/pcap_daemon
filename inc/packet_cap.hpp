@@ -5,10 +5,11 @@
 #define INC_PACKET_CAP_HPP_
 
 #include <string>
+#include <cstdint>
 #include <pcap.h>
 
 class packet_cap {
-    friend void pcap_handle(u_char*, const struct pcap_pkthdr*, const u_char*);
+    friend void pcap_handle(uint8_t*, const struct pcap_pkthdr*, const uint8_t*);
 
  public:
     packet_cap() = delete;
@@ -24,13 +25,13 @@ class packet_cap {
 
     void open();
     void close();
-    void handle();
+    // void handle();
 
  private:
     bool find_device();
     void open_device();
     void set_filter();
-    void packet_loop();
+    // void packet_loop();
 
     inline void log_error_message_and_exit(const char*, const char*, const char*);
 
@@ -38,6 +39,6 @@ class packet_cap {
     std::string dev_name;
 };
 
-void pcap_handle(u_char*, const struct pcap_pkthdr*, const u_char*);
+void pcap_handle(uint8_t*, const struct pcap_pkthdr*, const uint8_t*);
 
 #endif  // INC_PACKET_CAP_HPP_

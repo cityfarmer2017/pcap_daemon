@@ -71,6 +71,7 @@ inline void packet_cap::log_error_message_and_exit(const char* api_name, const c
 
 void pcap_handle(uint8_t* user, const struct pcap_pkthdr* header, uint8_t* pkt_data) {
     auto eth_hdr = reinterpret_cast<eth_header*>(pkt_data);
+    std::vector<std::string> protos{"Reserved", "ICMP", "IGMP", "GGP", "IP", "ST", "TCP"};
     if(header->len >= 14){
         auto ip_hdr = reinterpret_cast<ip_header*>(pkt_data + 14);
         auto proto_type = ip_hdr->proto >= protos.size() ? "IP/UNKNOWN" : protos[ip_hdr->proto];
